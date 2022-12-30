@@ -43,3 +43,6 @@ spec:
   - port: 80
   selector:
     app: pizzafrontend
+
+# -> kubectl apply -f backend-deploy.yml
+# -> kubectl get pods
