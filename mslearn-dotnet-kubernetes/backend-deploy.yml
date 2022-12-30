@@ -45,5 +45,13 @@ spec:
 # Deploy and run the backend microservice 
 # This command is telling Kubernetes to run the file we created. It will download the image from Docker Hub and create the container. 
 # -> kubectl apply -f backend-deploy.yml
-# To view the progress, use the following code
+# To view the progress and status, use the following code
 # -> kubectl get pods
+
+# using kubernetes to scale the backend service (container)
+# note: The reason we need to specify deployment/pizzabackend 
+# instead of just pizzabackend is because we're scaling the entire Kubernetes deployment of the pizza backend service, and that will scale the instances of the individual pods correctly.
+# for example to scale up to 5 instances
+# -> kubectl scale --replicas=5 deployment/pizzabackend
+# scale back to only one instance
+# -> kubectl scale --replicas=1 deployment/pizzabackend
