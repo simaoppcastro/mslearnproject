@@ -3,21 +3,49 @@ version: '3.4'
 services: 
 
   frontend:
+    # First, it creates the frontend website, naming it pizzafrontend.
     image: pizzafrontend
+    #  build it, pointing to the Dockerfile found in the frontend folder
     build:
       context: frontend
       dockerfile: Dockerfile
+    #  sets an environment variable for the website
     environment: 
       - backendUrl=http://backend
+    # opens a port and declares it depends on the backend service.
     ports:
       - "5902:80"
     depends_on: 
       - backend
+  # backend service gets created next. It's named pizzabackend. 
   backend:
+    # built from the same Dockerfile created (backend folder)
     image: pizzabackend
     build: 
       context: backend
       dockerfile: Dockerfile
+    # specifies which port to open
     ports: 
       - "5900:80"
+
+# To build the container images, open a command prompt, 
+# navigate to the directory with the docker-compose.yml file, 
+# and run the following command -> docker-compose build
+
+# test the backend API with swagger -> http://localhost:5900/swagger/index.html
+# to start both the website and the web API, run this command -> docker-compose up
+# test the frontend -> http://localhost:5902/
+
+# build -> docker-compose build
+# run -> docker-compose run
     
+# to deploy the image to docker hub
+# cmd -> docker login
+# tag first (the two images -> frontend and the backend)
+# cmd -> docker tag pizzafrontend docker-username/pizzafrontend
+# cmd -> docker tag pizzabackend docker-username/pizzabackend
+# and for last -> push the images
+# cmd -> docker push simaoppcastro/pizzafrontend
+# cmd -> docker push simaoppcastro/pizzabackend
+
+# check the repositories with the images on -> https://hub.docker.com/
