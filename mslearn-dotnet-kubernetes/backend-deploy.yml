@@ -12,12 +12,21 @@ spec:
     spec:
       containers:
       - name: pizzabackend
+        # image: docker-username/image-name:version
         image: simaoppcastro/pizzabackend:latest
         ports:
         - containerPort: 80
         env:
         - name: ASPNETCORE_URLS
           value: http://*:80
+        # good practice to add resources limits
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
   selector:
     matchLabels:
       app: pizzabackend
@@ -32,3 +41,9 @@ spec:
   - port: 80
   selector:
     app: pizzabackend
+
+# Deploy and run the backend microservice 
+# This command is telling Kubernetes to run the file we created. It will download the image from Docker Hub and create the container. 
+# -> kubectl apply -f backend-deploy.yml
+# To view the progress, use the following code
+# -> kubectl get pods
